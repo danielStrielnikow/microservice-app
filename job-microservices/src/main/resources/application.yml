@@ -1,0 +1,48 @@
+spring:
+#  application:
+#    name: job-service
+  #  datasource:
+#    url: jdbc:h2:mem:test
+#  h2:
+#    console:
+#      enabled: true
+#  jpa:
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: update
+  datasource:
+    url: jdbc:postgresql://localhost:5433/job
+    username: daniel
+    password: daniel
+  jpa:
+    database: postgresql
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+#Config Server
+  config:
+    import: configserver:http://localhost:8080
+  profiles:
+    active: dev
+
+server:
+  port: 8082
+
+# Eureka
+eureka:
+  client:
+    registry-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+URL:
+  company: http://COMPANY-SERVICE:8081/companies/
+  review: http://REVIEW-SERVICE:8083/reviews?companyId=
+
+#Zipkin
+management:
+  trading:
+    sampling:
+      probability: 1.0
